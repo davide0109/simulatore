@@ -1,0 +1,17 @@
+constant:
+  api:
+    wso2-auth: https://wso2apim-gw.cariprpcprod.it/token
+    wso2-output: https://wso2apim-gw.cariprpcprod.it/operations/credito/credito/t1/apertura-preventivo-simulatore/1.0/simulatore/update
+
+  key-properties:
+    ck-key: T1|CARIPRPCPROD|CK_TOOLMUTUI_CAI
+    cs-key: T1|CARIPRPCPROD|CS_TOOLMUTUI_CAI
+
+logging:
+  file:
+    path: /RGP/T1-SIMULATORE/LOGS  # Directory dei log
+  level:
+    root: WARN
+    agricole.simulatore.mutuoCard: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %5p - %c{1}:%L - %m%n"  # Formato leggibile per WebSphere

@@ -1,0 +1,38 @@
+server:
+  servlet:
+    context-path: /simulatore/api
+
+constant:
+  fileName:
+    sussistenza: sussistenza.csv
+
+spring:
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+  application:
+    name: mutuoCard
+  datasource:
+    jndi-name: jdbc/simulatore
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    doc-expansion: none
+
+jwt:
+  key:
+    public: QeNDZMx2GvZpUMvPbVS5VmsD3OGT6rHqiy701qiA5b4=

@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>agricole.simulatore</groupId>
+    <artifactId>simulatore</artifactId>
+    <version>0.0.1</version>
+    <packaging>ear</packaging> <!-- Specifica il tipo di packaging -->
+
+    <dependencies>
+        <!-- Dependency per il modulo WAR -->
+        <dependency>
+            <groupId>agricole.simulatore</groupId>
+            <artifactId>mutuoCard</artifactId>
+            <version>0.0.1</version>
+            <type>war</type>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>3.6</version> <!-- Use the latest version -->
+                <configuration>
+                    <serverName>liberty-server</serverName>
+                    <apps>
+                        <app>
+                            <groupId>agricole.simulatore</groupId>
+                            <artifactId>mutuoCard</artifactId>
+                            <type>ear</type>
+                        </app>
+                    </apps>
+
+                    <copyDependencies>
+                        <dependencyGroup>
+                            <!-- Definisci la cartella in cui copiare le dipendenze JDBC -->
+                            <location>jdbc</location>
+                            <dependency>
+                                <!-- Aggiungi la dipendenza per il driver Oracle -->
+                                <groupId>com.oracle.database.jdbc</groupId>
+                                <artifactId>ojdbc8</artifactId>
+                                <version>21.14.0.0</version> <!-- Usa la versione appropriata -->
+                            </dependency>
+                        </dependencyGroup>
+                    </copyDependencies>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin Maven EAR per la creazione del file EAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <!-- Qui includiamo il modulo WAR -->
+                    <modules>
+                        <webModule>
+                            <groupId>agricole.simulatore</groupId>
+                            <artifactId>mutuoCard</artifactId>
+                            <bundleFileName>simulatoreMutuoCard.war</bundleFileName>
+                            <contextRoot>/simulatore/api</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

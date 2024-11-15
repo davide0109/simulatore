@@ -1,0 +1,18 @@
+constant:
+  api:
+    wso2-auth: https://wso2apim-gw.cariprpccoll.it/token
+    wso2-output: https://wso2apim-gw.cariprpccoll.it/operations/credito/credito/t1/apertura-preventivo-simulatore/1.0/simulatore/update
+
+  key-properties:
+    ck-key: T1|CARIPRPCCOLL|CK_TOOLMUTUI_CAI
+    cs-key: T1|CARIPRPCCOLL|CS_TOOLMUTUI_CAI
+
+logging:
+  file:
+    path: /RGP/T1-SIMULATORE/LOGS  # Directory dei log
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %5p - %c{1}:%L - %m%n"  # Formato leggibile per WebSphere

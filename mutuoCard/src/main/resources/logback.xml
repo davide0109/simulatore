@@ -1,0 +1,18 @@
+<configuration>
+    <property name="LOG_DIR" value="/RGP/T1-TOOLMUTUI/LOG" />
+
+    <!-- Appender per il log su file con rotazione giornaliera -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/simulatore.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/simulatore.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %5p - %c{1}:%L - %m%n</pattern>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
