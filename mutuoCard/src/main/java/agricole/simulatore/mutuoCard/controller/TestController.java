@@ -21,7 +21,11 @@ public class TestController {
 
     @GetMapping("/test")
     public String test() {
-        log.info("{} {} {} {} {}", applicationConstant.getCK_KEY(), applicationConstant.getCS_KEY(), applicationConstant.getWSO2_API_AUTH(), applicationConstant.getWSO2_API_OUTPUT(), applicationConstant.getMk());
         return applicationConstant.getCK_KEY() + applicationConstant.getCS_KEY() + applicationConstant.getWSO2_API_AUTH() + applicationConstant.getWSO2_API_OUTPUT() + applicationConstant.getMk();
+    }
+
+    @GetMapping("/test_1")
+    public String test1() {
+        return applicationConstant.getKeyPropertiesString() + " " + applicationConstant.getKeyProperties(applicationConstant.getCK_KEY()) + " " + applicationConstant.getKeyProperties(applicationConstant.getCS_KEY());
     }
 }

@@ -49,7 +49,7 @@ public class WebClientService {
     public <T> T postWso2Token(Class<T> responseType) {
         try {
             return webClient.post()
-                .uri(applicationConstant.getWso2TokenPath())
+                .uri(applicationConstant.getWSO2_API_AUTH())
                 .header("Authorization", "Basic " + getAuthorizationBasic())
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue("grant_type=client_credentials")
@@ -90,7 +90,7 @@ public class WebClientService {
     public <T> T postWso2Output(Object requestBody, Class<T> responseType, Wso2AuthResponse authResponse) {
         try {
             return webClient.post()
-                .uri(applicationConstant.getWso2OutputPath())
+                .uri(applicationConstant.getWSO2_API_OUTPUT())
                 .header("Authorization", "Bearer " + authResponse.getAccessToken())
                 .bodyValue(requestBody)
                 .retrieve()
@@ -104,9 +104,9 @@ public class WebClientService {
     }
 
     public String getAuthorizationBasic() throws Exception {
-        String ck_cai = applicationConstant.getKeyProperties().get("T1|CARIPRPCCOLL|CK_TOOLMUTUI_CAI");
-        String cs_cai = applicationConstant.getKeyProperties().get("T1|CARIPRPCCOLL|CS_TOOLMUTUI_CAI");
-        String MK = applicationConstant.getMk() != null ? applicationConstant.getMk() : "xMXbFAaIv/RSgwK0GOMSu+Sujos1IbJFW2dRDnI7TiQ=";
+        String ck_cai = applicationConstant.getKeyProperties(applicationConstant.getCK_KEY());
+        String cs_cai = applicationConstant.getKeyProperties(applicationConstant.getCS_KEY());
+        String MK = applicationConstant.getMk();
 
         String initVectorCk = ck_cai.split(":")[0].trim();
         String initVectorCs = cs_cai.split(":")[0].trim();

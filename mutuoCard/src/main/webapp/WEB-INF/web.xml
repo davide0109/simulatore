@@ -17,16 +17,4 @@
         <resource-env-ref-name>url/wso2_session_properties_filepath</resource-env-ref-name>
         <resource-env-ref-type>java.net.URL</resource-env-ref-type>
     </resource-env-ref>
-
-    <resource-env-ref>
-        <description>URL Wso2 token JNDI</description>
-        <resource-env-ref-name>UrlWso2Token</resource-env-ref-name>
-        <resource-env-ref-type>java.net.URL</resource-env-ref-type>
-    </resource-env-ref>
-
-    <resource-env-ref>
-        <description>URL Wso2 output JNDI</description>
-        <resource-env-ref-name>UrlWso2Output</resource-env-ref-name>
-        <resource-env-ref-type>java.net.URL</resource-env-ref-type>
-    </resource-env-ref>
 </web-app>
