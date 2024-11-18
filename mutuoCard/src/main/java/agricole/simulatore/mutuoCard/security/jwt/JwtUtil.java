@@ -23,12 +23,12 @@ import static io.jsonwebtoken.Claims.EXPIRATION;
 @Slf4j
 public class JwtUtil {
 
-  /*  @PostConstruct
+    /*@PostConstruct
     public void init() {
         Map<String, Object> claims = new HashMap<>();
         claims.put(AUTHORITIES_CLAIM, "SIMULATORE_ADMIN");
         claims.put(ID_PREVENTIVO, null);
-        claims.put(MATRICOLA, "J53632");
+        claims.put(MATRICOLA, "J05345");
         claims.put(DOMINIO, "CARIPRPCCOLL");
         log.info("JWT: {}", Jwts.builder().setClaims(claims).setExpiration(Date.from(ZonedDateTime.now().plusYears(10).toInstant())).signWith(jwtConfig.getKey()).compact());
     }*/
