@@ -43,6 +43,7 @@ public class SussistenzaService extends AbstractService<Sussistenza, Sussistenza
         .setSkipHeaderRecord(true)
         .setIgnoreHeaderCase(true)
         .setTrim(true)
+        .setDelimiter(';')
         .build();
 
     /**
