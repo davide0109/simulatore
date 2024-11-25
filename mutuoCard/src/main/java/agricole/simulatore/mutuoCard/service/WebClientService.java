@@ -21,7 +21,6 @@ import java.util.Base64;
 @Service
 public class WebClientService {
 
-
     @Autowired
     ApplicationConstant applicationConstant;
 
@@ -76,7 +75,7 @@ public class WebClientService {
     }
 
     /**
-     * Effettua una richiesta POST all'endpoint specificato utilizzando WebClient.
+     * Effettua una richiesta POST all' endpoint specificato utilizzando WebClient.
      * Invio dati di Output a TM tramite api Wso2
      *
      * @param requestBody  il corpo della richiesta
@@ -94,6 +93,18 @@ public class WebClientService {
                 .header("Authorization", "Bearer " + authResponse.getAccessToken())
                 .bodyValue(requestBody)
                 .retrieve()
+                .onStatus(HttpStatus::is5xxServerError, response -> response.bodyToMono(String.class)
+                    .flatMap(body -> Mono.error(new WebClient500Exception("Server error: " + body))))
+                .onStatus(HttpStatus::is4xxClientError, response -> {
+                    if (response.statusCode().equals(HttpStatus.BAD_REQUEST)) {
+                        return response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new WebClient400Exception("Output Api Client error 400: BAD_REQUEST... " + body)));
+                    } else if (response.statusCode().equals(HttpStatus.UNAUTHORIZED)) {
+                        return response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new WebClient400Exception("Output Api Client error 401: UNAUTHORIZED... " + body)));
+                    }
+                    return response.createException().flatMap(Mono::error);
+                })
                 .bodyToMono(responseType)
                 .block();
         } catch (WebClient400Exception | WebClient500Exception ex) {

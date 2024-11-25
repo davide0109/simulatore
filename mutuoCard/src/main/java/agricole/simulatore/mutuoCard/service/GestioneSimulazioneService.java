@@ -81,10 +81,8 @@ public class GestioneSimulazioneService {
     }
 
     public void sendOutput(OutputRequest request) {
-        Mutuo mutuo = mutuoService.read(request.getInputData().getIdMutuo());
-        if (Objects.isNull(request.getIdSimulazione()))
-            simulazioneService.create(new Simulazione(request, mutuo, null));
-        else simulazioneService.update(new Simulazione(request, mutuo, request.getIdSimulazione()));
+        setSimulazione(request);
+
         TmOutputRequest tmOutputRequest = new TmOutputRequest(request, sussistenzaService.findByProvincia(request.getInputData().getProvinciaResidenza()).getSigla());
         TmOutputTransaction transaction = transactionRepository.save(new TmOutputTransaction(tmOutputRequest.toString(), LocalDateTime.now()));
         try {
@@ -119,5 +117,17 @@ public class GestioneSimulazioneService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Tale metodo aggiorna o crea un simulazione a database.
+     * Se l'id preventivo esiste a database, viene aggiornata la simulazione esistente, altrimenti viene creata.
+     * @param request dati da inviare a TM.
+     * */
+    public void setSimulazione(OutputRequest request) {
+        Mutuo mutuo = mutuoService.read(request.getInputData().getIdMutuo());
+        if (simulazioneService.existByIdPreventivo(request.getIdPreventivo()))
+            simulazioneService.update(new Simulazione(request, mutuo, simulazioneService.findByIdPreventivo(request.getIdPreventivo()).getId()));
+        else simulazioneService.create(new Simulazione(request, mutuo, null));
     }
 }

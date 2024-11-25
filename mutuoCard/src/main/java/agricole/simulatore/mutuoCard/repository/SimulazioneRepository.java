@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface SimulazioneRepository extends JpaRepository<Simulazione, Long> {
 
     Optional<Simulazione> findByIdPreventivo(String idPreventivo);
+
+    Boolean existsByIdPreventivo(String idPreventivo);
 }

@@ -11,4 +11,8 @@ public class SimulazioneService extends AbstractService<Simulazione, Simulazione
     public Simulazione findByIdPreventivo(String idPreventivo) {
         return repository.findByIdPreventivo(idPreventivo).orElse(null);
     }
+
+    public Boolean existByIdPreventivo(String idPreventivo) {
+        return repository.existsByIdPreventivo(idPreventivo);
+    }
 }
