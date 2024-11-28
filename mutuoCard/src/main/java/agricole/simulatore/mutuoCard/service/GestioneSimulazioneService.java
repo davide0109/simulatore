@@ -26,6 +26,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class GestioneSimulazioneService {
     private TmOutputTransactionRepository transactionRepository;
 
     public List<ProvinciaResponse> getProvince() {
-        return sussistenzaService.findAll().stream().map(ProvinciaResponse::new).collect(Collectors.toList());
+        return sussistenzaService.findAll().stream().map(ProvinciaResponse::new).collect(Collectors.toList()).stream().sorted(Comparator.comparing(p -> p.getNome().replace("'", ""))).collect(Collectors.toList());
     }
 
     public Integer getSussistenza(String provincia, Integer numeroComponenti) {
@@ -122,8 +123,9 @@ public class GestioneSimulazioneService {
     /**
      * Tale metodo aggiorna o crea un simulazione a database.
      * Se l'id preventivo esiste a database, viene aggiornata la simulazione esistente, altrimenti viene creata.
+     *
      * @param request dati da inviare a TM.
-     * */
+     */
     public void setSimulazione(OutputRequest request) {
         Mutuo mutuo = mutuoService.read(request.getInputData().getIdMutuo());
         if (simulazioneService.existByIdPreventivo(request.getIdPreventivo()))
