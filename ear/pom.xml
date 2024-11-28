@@ -6,7 +6,7 @@
 
     <groupId>agricole.simulatore</groupId>
     <artifactId>simulatore</artifactId>
-    <version>0.0.1</version>
+    <version>0.2.0</version>
     <packaging>ear</packaging> <!-- Specifica il tipo di packaging -->
 
     <dependencies>
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>agricole.simulatore</groupId>
             <artifactId>mutuoCard</artifactId>
-            <version>0.0.1</version>
+            <version>0.2.0</version>
             <type>war</type>
         </dependency>
 
