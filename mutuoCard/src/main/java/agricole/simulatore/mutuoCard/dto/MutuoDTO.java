@@ -1,6 +1,7 @@
 package agricole.simulatore.mutuoCard.dto;
 
 import agricole.simulatore.mutuoCard.dto.enums.DominiConsapEnum;
+import agricole.simulatore.mutuoCard.dto.enums.TipologiaTassoEnum;
 import agricole.simulatore.mutuoCard.dto.shared.TassoFissoEsplicito;
 import agricole.simulatore.mutuoCard.dto.shared.TassoParametrato;
 import agricole.simulatore.mutuoCard.model.Mutuo;
@@ -57,5 +58,19 @@ public class MutuoDTO {
         this.isActive = mutuo.getIsActive();
         this.pdf = Objects.nonNull(mutuo.getFilePdf());
         this.garanzia = mutuo.getGaranzia();
+    }
+
+    public MutuoDTO(Boolean isClassic) {
+        this.id = null;
+        this.nome = "Classico";
+        this.tassoFissoEsplicito = new TassoFissoEsplicito(null, TipologiaTassoEnum.FISSO_ESPLICITO, 3.39, 3.39, 3.09, 3.09, 3.09);
+        this.fissoParametrato = null;
+        this.variabile = null;
+        this.variabileCap = null;
+        this.costanti = new CostanteDTO(null, 7D, 4.75, 35D, 0.8, null);
+        this.garanzia = null;
+        this.isClassic = isClassic;
+        this.isActive = Boolean.TRUE;
+        this.pdf = Boolean.FALSE;
     }
 }

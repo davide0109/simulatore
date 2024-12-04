@@ -13,11 +13,11 @@ import agricole.simulatore.mutuoCard.model.Costante;
 import agricole.simulatore.mutuoCard.model.Listino;
 import agricole.simulatore.mutuoCard.model.Mutuo;
 import agricole.simulatore.mutuoCard.model.Tasso;
-import agricole.simulatore.mutuoCard.repository.VistaParametriRepository;
 import agricole.simulatore.mutuoCard.service.entityService.*;
 import agricole.simulatore.mutuoCard.utils.exception.ResourceNotFoundException;
 import agricole.simulatore.mutuoCard.utils.messaging.Message;
 
+import javax.annotation.PostConstruct;
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -49,6 +50,18 @@ public class GestioneListinoService {
 
     @Autowired
     private VistaParametriService vistaParametriService;
+
+    /**
+     * Salva a db la configurazione di start dei listini se count == 0.
+     */
+    @PostConstruct
+    public void init() {
+        if (listinoService.count() == 0) {
+            List<MutuoDTO> mutuoDTOList = new ArrayList<>();
+            mutuoDTOList.add(new MutuoDTO(Boolean.TRUE));
+            creaListino(new CreazioneListinoRequest("Init: " + LocalDate.now(), mutuoDTOList));
+        }
+    }
 
     public void creaListino(CreazioneListinoRequest request) {
         Listino listino = listinoService.create(new Listino(Boolean.FALSE, request.getNomeListino()));
